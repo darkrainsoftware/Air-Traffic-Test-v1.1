@@ -27,7 +27,11 @@
 	<button class="button red_button" onclick="getLocation()" >Get List of Airplanes</button>
 	
 	<p id="demo"></p>
-	
+
+        <table style="display:none" id="aircrafts_table">            
+
+        </table>
+
   </div>
   <div class="column side">
   </div>
@@ -35,20 +39,20 @@
 
 <script>
 
-var x = document.getElementById("demo");
+var paragraph = document.getElementById("demo");
 function getLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(load_aircrafts, errorCallback);
     } else {
-        x.innerHTML = "Geolocation is not supported by this browser.";
+        paragraph.innerHTML = "Geolocation is not supported by this browser.";
     }
 }
 
 function load_aircrafts() {
     
     // var response = JSON.parse(aircrafts_object);
-    x.innerHTML = aircrafts_object.acList[0].Cou;
-    console.log(aircrafts_object.acList[0]);
+    
+    console.log(aircrafts_object);
     /*
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
@@ -63,6 +67,34 @@ function load_aircrafts() {
     xmlhttp.open("GET", "http://public-api.adsbexchange.com/VirtualRadar/AircraftList.json?lat=33.433638&lng=-112.008113", true);
     xmlhttp.send();
     */
+
+    var aircrafts_table = document.getElementById("aircrafts_table");
+    if (aircrafts_table.style.display === "none") {
+        aircrafts_table.style.display = "block";
+    } else {
+        aircrafts_table.style.display = "none";
+    }
+
+    var header = aircrafts_table.createTHead();
+    var hrow = header.insertRow(0);
+    var hcell1 = hrow.insertCell(0);
+    var hcell2 = hrow.insertCell(1);
+    var hcell3 = hrow.insertCell(2);
+    
+    hcell1.innerHTML = "East bound / West bound";
+    hcell2.innerHTML = "Altitude";
+    hcell3.innerHTML = "Flight code number";
+
+    for (counter = 1; counter < aircrafts_object.acList.length; counter++) 
+    {
+        var row = aircrafts_table.insertRow(1);
+        var cell1 = row.insertCell(0);
+        var cell2 = row.insertCell(1);
+        var cell3 = row.insertCell(2);
+        cell1.innerHTML = "<img src=\"images/plane east direction.png\" />";
+        cell2.innerHTML = aircrafts_object.acList[counter].Alt;
+        cell3.innerHTML =  "<a style=\"text-decoration: none\" href=\"flight_details.html\">" + aircrafts_object.acList[counter].Icao + "</a>";
+    }     
 }
 
 function errorCallback(){
