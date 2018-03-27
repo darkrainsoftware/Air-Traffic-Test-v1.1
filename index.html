@@ -8,7 +8,7 @@
 <link href='https://fonts.googleapis.com/css?family=Amatic SC' rel='stylesheet'>
 <link rel="stylesheet" href="css/styles.css">
 
-<script src="AircraftList.json"></script>
+<script src="AircraftList.js"></script>
 
 </head>
 
@@ -46,9 +46,9 @@ function getLocation() {
 
 function load_aircrafts() {
     
-    // var response = JSON.parse("AircraftList");
-    x.innerHTML = aircrafts_object;
-    console.log(aircrafts_object);
+    // var response = JSON.parse(aircrafts_object);
+    x.innerHTML = aircrafts_object.acList[0].Cou;
+    console.log(aircrafts_object.acList[0]);
     /*
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
