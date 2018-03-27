@@ -8,7 +8,10 @@
 <link href='https://fonts.googleapis.com/css?family=Amatic SC' rel='stylesheet'>
 <link rel="stylesheet" href="css/styles.css">
 
+<script src="AircraftList.json"></script>
+
 </head>
+
 <body>
 
 <div class="header">
@@ -21,7 +24,7 @@
   <div class="column middle">
     
 	<p>Click the button to get list of airplanes that are flying over your current location.</p>
-	<button class="button red_button" onclick="getLocation()" >Get List of Airplanes</button>
+	<button class="button red_button" onclick="load_aircrafts(aircrafts_object)" >Get List of Airplanes</button>
 	
 	<p id="demo"></p>
 	
@@ -29,23 +32,38 @@
   <div class="column side">
   </div>
 </div>
-  
+
 <script>
 
 var x = document.getElementById("demo");
-
 function getLocation() {
-
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition, errorCallback);
-    } else { 
+        navigator.geolocation.getCurrentPosition(load_aircrafts, errorCallback);
+    } else {
         x.innerHTML = "Geolocation is not supported by this browser.";
     }
 }
 
-function showPosition(position) {
-    x.innerHTML = "Latitude: " + position.coords.latitude + 
-    "<br>Longitude: " + position.coords.longitude;
+
+function load_aircrafts(aircrafts_object) {
+    
+    // var response = JSON.parse("AircraftList");
+    x.innerHTML = aircrafts_object;
+    console.log(aircrafts_object);
+    /*
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var response = JSON.parse(this.responseText);
+            
+            console.log(response);
+            x.innerHTML = response;
+        }
+    };
+
+    xmlhttp.open("GET", "AircraftList.json", true);
+    xmlhttp.send();
+    */
 }
 
 function errorCallback(){
