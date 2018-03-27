@@ -1,19 +1,43 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+<title>Air Traffic Test v1.1</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link href='https://fonts.googleapis.com/css?family=Amatic SC' rel='stylesheet'>
+<link rel="stylesheet" href="css/styles.css">
+
+</head>
 <body>
 
-<p>Click the button to get your coordinates.</p>
+<div class="header">
+  <h1>Air Traffic Test v1.1</h1>
+</div>
 
-<button onclick="getLocation()">Provide your location</button>
-
-<p id="demo"></p>
-
+<div class="row">
+  <div class="column side">
+  </div>
+  <div class="column middle">
+    
+	<p>Click the button to get list of airplanes that are flying over your current location.</p>
+	<button class="button red_button" onclick="getLocation()" >Get List of Airplanes</button>
+	
+	<p id="demo"></p>
+	
+  </div>
+  <div class="column side">
+  </div>
+</div>
+  
 <script>
+
 var x = document.getElementById("demo");
 
 function getLocation() {
+
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
+        navigator.geolocation.getCurrentPosition(showPosition, errorCallback);
     } else { 
         x.innerHTML = "Geolocation is not supported by this browser.";
     }
@@ -23,7 +47,12 @@ function showPosition(position) {
     x.innerHTML = "Latitude: " + position.coords.latitude + 
     "<br>Longitude: " + position.coords.longitude;
 }
-</script>
 
+function errorCallback(){
+    alert('You must accept access to geolocation to be able to use application.');
+}
+
+</script>
+  
 </body>
 </html>
