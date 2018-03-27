@@ -24,7 +24,7 @@
   <div class="column middle">
     
 	<p>Click the button to get list of airplanes that are flying over your current location.</p>
-	<button class="button red_button" onclick="load_aircrafts(aircrafts_object)" >Get List of Airplanes</button>
+	<button class="button red_button" onclick="getLocation()" >Get List of Airplanes</button>
 	
 	<p id="demo"></p>
 	
@@ -44,8 +44,7 @@ function getLocation() {
     }
 }
 
-
-function load_aircrafts(aircrafts_object) {
+function load_aircrafts() {
     
     // var response = JSON.parse("AircraftList");
     x.innerHTML = aircrafts_object;
@@ -61,7 +60,7 @@ function load_aircrafts(aircrafts_object) {
         }
     };
 
-    xmlhttp.open("GET", "AircraftList.json", true);
+    xmlhttp.open("GET", "http://public-api.adsbexchange.com/VirtualRadar/AircraftList.json?lat=33.433638&lng=-112.008113", true);
     xmlhttp.send();
     */
 }
