@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Air Traffic Test v1.1</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link href='https://fonts.googleapis.com/css?family=Amatic SC' rel='stylesheet'>
+<link rel="stylesheet" href="css/styles.css">
+
+</head>
+
+<body onload="flight_details()">
+
+<div class="header">
+  <h1>Air Traffic Test v1.1</h1>
+</div>
+
+<div class="row">
+  <div class="column side">
+  </div>
+  <div class="column middle">
+    
+	<p>Flight detals:</p>
+	
+        <table id="aircrafts_table">            
+            <tr>
+                <th>Airplane Manufacturer</th>
+                <th>Airplane Model</th>
+                <th>Flight Origin airport</th>
+                <th>Flight Destination airport</th>
+                <th>Airline company</th>
+            </tr>
+            <tr>
+                <td><label id="manufacturer"></label></td>
+                <td><label id="model"></label></td>
+                <td><label id="origin"></label></td>
+                <td><label id="destination"></label></td>
+                <td><img id="company_logo"></td>
+            </tr>
+        </table>
+
+  </div>
+  <div class="column side">
+  </div>
+</div>
+  
+<script>
+
+    function flight_details()
+    {
+        var items = window.location.search.substr(0).split("&");
+     
+        // Mdl & Man & From & To
+
+        items[0] = items[0].replace('?Mdl=','');
+        items[1] = items[1].replace('Man=','');
+        items[2] = items[2].replace('From=','');
+        items[3] = items[3].replace('To=','');
+
+        items[0] = decodeURI(items[0]);
+        items[1] = decodeURI(items[1]);
+        items[2] = decodeURI(items[2]);
+        items[3] = decodeURI(items[3]);
+
+        document.getElementById("manufacturer").innerHTML = items[1];
+        document.getElementById("model").innerHTML = items[0];
+        document.getElementById("origin").innerHTML = items[2];
+        document.getElementById("destination").innerHTML = items[3];
+        document.getElementById("company_logo").src = "//logo.clearbit.com/" + items[1] + ".com";
+        
+    }
+
+</script>
+
+</body>
+</html>

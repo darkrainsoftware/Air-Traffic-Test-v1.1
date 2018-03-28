@@ -40,7 +40,8 @@
 <script>
 
 var paragraph = document.getElementById("demo");
-function getLocation() {
+function getLocation() 
+{
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(load_aircrafts, errorCallback);
     } else {
@@ -48,31 +49,13 @@ function getLocation() {
     }
 }
 
-function load_aircrafts() {
-    
-    // var response = JSON.parse(aircrafts_object);
-    
+function load_aircrafts()
+{    
     console.log(aircrafts_object);
-    /*
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            var response = JSON.parse(this.responseText);
-            
-            console.log(response);
-            x.innerHTML = response;
-        }
-    };
-
-    xmlhttp.open("GET", "http://public-api.adsbexchange.com/VirtualRadar/AircraftList.json?lat=33.433638&lng=-112.008113", true);
-    xmlhttp.send();
-    */
-
+    
     var aircrafts_table = document.getElementById("aircrafts_table");
     if (aircrafts_table.style.display === "none") {
         aircrafts_table.style.display = "block";
-    } else {
-        aircrafts_table.style.display = "none";
     }
 
     var header = aircrafts_table.createTHead();
@@ -93,13 +76,25 @@ function load_aircrafts() {
         var cell3 = row.insertCell(2);
         cell1.innerHTML = "<img src=\"images/plane east direction.png\" />";
         cell2.innerHTML = aircrafts_object.acList[counter].Alt;
-        cell3.innerHTML =  "<a style=\"text-decoration: none\" href=\"flight_details.html\">" + aircrafts_object.acList[counter].Icao + "</a>";
+        cell3.innerHTML =  
+        "<a style=\"text-decoration: none\" href=\"flight_details.html?Mdl=" + 
+        aircrafts_object.acList[counter].Mdl + 
+        "&Man=" + aircrafts_object.acList[counter].Man + 
+        "&From=" + aircrafts_object.acList[counter].From + 
+        "&To=" + aircrafts_object.acList[counter].To + 
+        "\">" + 
+        aircrafts_object.acList[counter].Icao + 
+        "</a>";
     }     
+
+    var refresh_interval = setInterval(load_aircrafts, 60000);
 }
 
-function errorCallback(){
+function errorCallback()
+{
     alert('You must accept access to geolocation to be able to use application.');
 }
+
 
 </script>
   
